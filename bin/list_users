@@ -1,0 +1,14 @@
+
+require 'optparse'
+require 'optparse/time'
+require 'ostruct'
+
+require 'arkcon'
+require 'steam-condenser'
+
+
+
+socket = RCONSocket.new ARGV[0], ARGV[1]
+server = Arkcon::ArkServer.new socket
+server.authenticate ARGV[2]
+puts server.list_players.to_s
