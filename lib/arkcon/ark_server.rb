@@ -1,4 +1,5 @@
 require 'steam-condenser'
+#require 'pry'
 module Arkcon
   class ArkServer
 
@@ -99,7 +100,19 @@ module Arkcon
 
 
     def list_players
-      exec 'listplayers'
+      resp = exec 'listplayers'
+
+      lines = resp.response.split "\n"
+      user_data = []
+      lines.each do |line|
+        index, user_info = line.split( '. ', 2)
+        unless user_info.nil?
+          username, steamid = user_info.split( ', ', 2)
+          user_data << {index: index, user: username, steamid: steamid}
+        end
+
+      end
+      user_data
     end
 
     def allow_player_to_join_no_check(player_name)
