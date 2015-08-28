@@ -34,7 +34,15 @@ module Arkcon
     end
 
     def get_chat
-      exec 'getchat'
+      resp = exec 'getchat'
+      lines = resp.response.split "\n"
+      chat_data = []
+      lines.each do |line|
+        user, text = line.split( ': ', 2)
+        chat_data << {user: user, text: text} unless text.nil?
+
+      end
+      chat_data
     end
 
     def kick_player(steam_id)

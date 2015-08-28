@@ -7,8 +7,17 @@ require "arkcon"
 # with your gem easier. You can also use a different console, if you like.
 
 # (If you use this, don't forget to add pry to your Gemfile!)
-# require "pry"
-# Pry.start
+require "pry"
 
-require "irb"
-IRB.start
+def start_console
+  socket = RCONSocket.new ARGV[0], ARGV[1]
+  server = Arkcon::ArkServer.new socket
+  server.authenticate ARGV[2]
+
+  binding.pry
+end
+
+start_console
+
+#require "irb"
+#IRB.start
