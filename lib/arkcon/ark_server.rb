@@ -2,6 +2,7 @@ require 'steam-condenser'
 module Arkcon
   class ArkServer
 
+
     def initialize(socket, user_name = 'Admin')
       @socket = socket
       @my_username = user_name
@@ -129,7 +130,16 @@ module Arkcon
 
     def exec(command)
       @socket.send RCONExecRequest.new(new_request_id, command)
-      @socket.reply
+      reply = @socket.reply
+      if reply.class == RCONAuthResponse
+        @retry_count += 1
+        STDERR "Server forced auth for: #{command}"
+        sleep 1 * @retry_count
+
+        authenticate!
+        return exec(command)
+      end
+      reply
     end
 
     private

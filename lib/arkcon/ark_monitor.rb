@@ -5,14 +5,16 @@ module Arkcon
     include Hooks
     include Hooks::InstanceHooks
 
-    define_hook :chat_received
-    define_hook :users_changed
+    define_hook :chat_received, scope: lambda { |*| nil }
+    define_hook :users_changed, scope: lambda { |*| nil }
 
 
     def initialize(server)
       @server = server
       @user_list = []
       @timer = nil
+      @fetching = false
+      @retry_count = 0
     end
 
     def start(interval = 1)
@@ -27,8 +29,19 @@ module Arkcon
     end
 
     def fetch_data
-      fetch_users
-      fetch_chat
+      return if @fetching
+
+      begin
+        fetch_users
+        fetch_chat
+        @retry_count = 0
+      rescue Exception => ex
+        # TODO: This is horrible, but expedient due to constant timeout errors
+        STDERR.puts "Exception thrown in fetch_data: #{ex.message}"
+        @retry_count += 1
+        sleep 3 * @retry_count
+      end
+      @fetching = false
     end
 
     def fetch_chat
