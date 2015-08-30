@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-require "bundler/setup"
-require "arkcon"
+require 'bundler/setup'
+require 'arkcon'
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
@@ -10,14 +10,11 @@ require "arkcon"
 require "pry"
 
 def start_console
-  socket = RCONSocket.new ARGV[0], ARGV[1]
-  server = Arkcon::ArkServer.new socket
-  server.authenticate ARGV[2]
+  server = Arkcon::connect ARGV[0], ARGV[1], ARGV[2]
 
   binding.pry
+  puts 'Arkcon ark_console' # So binding.pry has a next line to start at
+
 end
 
 start_console
-
-#require "irb"
-#IRB.start
