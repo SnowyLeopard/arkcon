@@ -8,6 +8,7 @@ module Arkcon
     define_hook :chat_received, scope: lambda { |*| nil }
     define_hook :users_changed, scope: lambda { |*| nil }
 
+    attr_reader :server
 
     def initialize(server)
       @server = server
