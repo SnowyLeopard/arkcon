@@ -1,5 +1,4 @@
 require 'steam-condenser'
-#require 'pry'
 module Arkcon
   class ArkServer
 
@@ -40,7 +39,12 @@ module Arkcon
       chat_data = []
       lines.each do |line|
         user, text = line.split( ': ', 2)
-        chat_data << {user: user, text: text} unless text.nil?
+
+        player_name, character_name = user.split( ' (')
+
+        character_name = character_name.nil?  ? '' : character_name.chomp(')')
+
+        chat_data << {player: player_name, character: character_name, text: text} unless text.nil?
 
       end
       chat_data

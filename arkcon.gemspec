@@ -32,4 +32,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'pry-byebug'
   spec.add_dependency 'steam-condenser'
+  spec.add_dependency 'hooks'
+  spec.add_dependency 'eventmachine'
 end
