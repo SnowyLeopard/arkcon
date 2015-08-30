@@ -1,8 +1,8 @@
 # Arkcon
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/arkcon`. To experiment with that code, run `bin/console` for an interactive prompt.
+This gem provides access to the API exposed over RCON by *Ark: Survival Evolved* Servers.  The *Arkcon::ArkServer* class provides the API while the *Arkcon::ArkMonitor* class provides a way to receive chat and active user information in an event driven fashion.
 
-TODO: Delete this and the text above, and describe your gem
+This is under active development and should be considered unstable.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Instructions coming...  For now look at the apps in the bin folder or just skim the ark_server.rb file.  It's not complicated code.
 
 ## Development
 
