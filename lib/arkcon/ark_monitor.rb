@@ -32,9 +32,12 @@ module Arkcon
 		def fetch_data
 			return if @fetching
 
-			fetch_users
-			fetch_chat
-			@retry_count = 0
+			begin
+				fetch_users
+				fetch_chat
+			rescue Exception => ex
+				@server.reconnect
+			end
 			@fetching = false
 		end
 

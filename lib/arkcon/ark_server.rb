@@ -18,8 +18,9 @@ module Arkcon
 			@socket.reply
 		end
 
-		def close
+		def reconnect
 			@socket.close
+			authenticate!
 		end
 
 		def broadcast(message)
