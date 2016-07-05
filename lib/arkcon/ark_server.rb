@@ -18,7 +18,7 @@ module Arkcon
 			@socket.reply
 		end
 
-		def close(server)
+		def close
 			@socket.close
 		end
 
